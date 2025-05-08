@@ -20,8 +20,8 @@ def run_toddler_model(input_data=None):
             df[column] = encoder.fit_transform(df[column].astype(str))
             label_encoders[column] = encoder
 
-    X = df.drop("Class/ASD Traits ", axis=1)
-    y = df["Class/ASD Traits "]
+    X = df.drop("Class/ASD", axis=1)
+    y = df["Class/ASD"]
 
     # Split the dataset
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -82,12 +82,12 @@ def run_toddler_model(input_data=None):
         elif feature == "Age_Months":
             while True:
                 try:
-                    age = int(input(f"Q{question_number}: Please enter the patient's age (12–26 months): "))
-                    if 12<= age <=36:
+                    age =float(input(f"Q{question_number}: Please enter the patient's age (1–3): "))
+                    if 1<= age <=3:
                        user_responses[feature] = age
                        break
                     else:
-                       print("Age must be between 17 and 64.")
+                       print("Age must be between 1 and 3.")
                 except ValueError:
                     print("Please enter a valid number for age.")
         elif feature == "gender":
@@ -158,19 +158,6 @@ def run_toddler_model(input_data=None):
     # Make a prediction based on user input
     input_df = pd.DataFrame([user_responses])
     prediction = best_model.predict(input_df)[0]
-    predicted_label = label_encoders["Class/ASD Traits "].inverse_transform([prediction])[0]
+    predicted_label = label_encoders["Class/ASD "].inverse_transform([prediction])[0]
 
     print(f"\nPrediction Result: {predicted_label}")
-'''
-# Example usage:
-input_data = {
-    "A1": 1, "A2": 0, "A3": 1, "A4": 0, "A5": 1, "A6": 1, "A7": 1, "A8": 0, "A9": 1, "A10": 0,
-    "Age_Months": 24,
-    "gender": "m", 
-    "Ethnicity": "Caucasian", 
-    "Jaundice": "no", 
-    "Family_mem_with_ASD": "yes"
-}
-
-run_toddler_model(input_data)
-'''
