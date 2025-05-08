@@ -9,7 +9,7 @@ from sklearn.metrics import accuracy_score, classification_report
 def run_teen_model():
     global best_model, X, class_encoder, label_encoders
 
-    df = pd.read_csv("teen.csv")
+    df = pd.read_csv("Datasets\\teen.csv")
 
     label_encoders = {}
     for col in df.columns:

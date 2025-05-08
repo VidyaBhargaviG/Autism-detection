@@ -6,7 +6,7 @@ from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score, classification_report
 
 def run_child_model():
-    df = pd.read_csv("child.csv")
+    df = pd.read_csv("Datasets\\child.csv")
 
     df = df.drop(columns=["contry_of_res", "age_desc", "relation", "used_app_before", "result", "relation"], errors='ignore')
 
